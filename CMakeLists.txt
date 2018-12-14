@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.10)
 project (WinnowingAlgorithm)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 --std=c++17 -Wall -Wextra -pedantic -g")
-set(BINARY_FILE "main")
+set(BINARY_FILE "find-pattern")
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
