@@ -2,21 +2,19 @@
 
 #include <sstream>
 #include <cctype>
-
-namespace {
-char my_tolower(char ch)
-{
-    return static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
-}
-}
+#include <iostream>
 
 Text::Text(std::istream& content)
 {
     std::ostringstream res;
     while (!content.eof()) {
-        unsigned char c = content.get();
-        if (isAcceptable(c))
-            res << my_tolower(c);
+        char c = content.get();
+        if (isalpha(c))
+            res << myTolower(c);
+        else if (c == '\n')
+            continue;
+        else if (isgraph(c) || isspace(c))
+            res << c;
     }
     normalizedContent_ = res.str();
 }
@@ -26,7 +24,7 @@ std::string Text::getNormalizedContent() const
     return normalizedContent_;
 }
 
-bool Text::isAcceptable(char c)
+unsigned char Text::myTolower(unsigned char ch)
 {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+    return static_cast<unsigned char>(std::tolower(static_cast<unsigned char>(ch)));
 }

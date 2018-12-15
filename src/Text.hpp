@@ -11,7 +11,7 @@ public:
     std::string getNormalizedContent() const;
 
 private:
-    bool isAcceptable(char c);
+    unsigned char myTolower(unsigned char ch);
 
     std::string normalizedContent_;
 };

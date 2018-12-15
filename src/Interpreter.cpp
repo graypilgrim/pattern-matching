@@ -1,6 +1,7 @@
 #include "Interpreter.hpp"
 
 #include "Text.hpp"
+#include "NaiveAlgorithm.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -40,7 +41,13 @@ Interpreter::Interpreter(int argc, char** argv)
     }
 
     Text pattern{patternFile};
+    // std::cout << pattern.getNormalizedContent() << std::endl;
     Text document{documentFile};
+    // std::cout << document.getNormalizedContent() << std::endl;
+
+    NaiveAlgorithm na{pattern, document};
+    na.run();
+    na.printResults();
 }
 
 void Interpreter::printHelpMessage() const
