@@ -95,7 +95,7 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     if (naive) {
         std::cout << "deadbeef" << std::endl;
         if (parallelly)
-            al = std::make_unique<ParallelNaiveAlgorithm>(pattern, document, 4);
+            al = std::make_unique<ParallelNaiveAlgorithm>(pattern, document, 3);
         else
             al = std::make_unique<NaiveAlgorithm>(pattern, document);
     } else {
