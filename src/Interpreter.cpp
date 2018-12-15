@@ -2,6 +2,7 @@
 
 #include "Text.hpp"
 #include "NaiveAlgorithm.hpp"
+#include "ParallelNaiveAlgorithm.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -48,6 +49,10 @@ Interpreter::Interpreter(int argc, char** argv)
     NaiveAlgorithm na{pattern, document};
     na.run();
     na.printResults();
+
+    ParallelNaiveAlgorithm pna{pattern, document};
+    pna.run();
+    pna.printResults();
 }
 
 void Interpreter::printHelpMessage() const
