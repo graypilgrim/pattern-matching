@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 Interpreter::Interpreter(int argc, char** argv)
 {
@@ -41,18 +42,7 @@ Interpreter::Interpreter(int argc, char** argv)
         return;
     }
 
-    Text pattern{patternFile};
-    // std::cout << pattern.getNormalizedContent() << std::endl;
-    Text document{documentFile};
-    // std::cout << document.getNormalizedContent() << std::endl;
-
-    NaiveAlgorithm na{pattern, document};
-    na.run();
-    na.printResults();
-
-    ParallelNaiveAlgorithm pna{pattern, document};
-    pna.run();
-    pna.printResults();
+    runAlgorithm(patternFile, documentFile);
 }
 
 void Interpreter::printHelpMessage() const
@@ -95,4 +85,23 @@ bool Interpreter::checkParallelity(const std::string& arg)
         return false;
     }
     return true;
+}
+
+void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile) const
+{
+    Text pattern{patternFile};
+    Text document{documentFile};
+    std::unique_ptr<Algorithm> al;
+    if (naive) {
+        std::cout << "deadbeef" << std::endl;
+        if (parallelly)
+            al = std::make_unique<ParallelNaiveAlgorithm>(pattern, document, 4);
+        else
+            al = std::make_unique<NaiveAlgorithm>(pattern, document);
+    } else {
+        //TODO: winnowing
+    }
+
+    al->run();
+    al->printResults();
 }

@@ -1,12 +1,12 @@
 #ifndef PARALLEL_NAIVE_ALGORITHM
 #define PARALLEL_NAIVE_ALGORITHM
 
-#include "Algorithm.hpp"
+#include "ParallelAlgorithm.hpp"
 
-class ParallelNaiveAlgorithm : public Algorithm
+class ParallelNaiveAlgorithm : public ParallelAlgorithm
 {
 public:
-    using Algorithm::Algorithm;
+    using ParallelAlgorithm::ParallelAlgorithm;
 
 private:
     void runWithoutTimeCheck();

@@ -14,6 +14,7 @@ private:
     void printFileErrorMessage(const std::string &name) const;
     bool checkAlgorithm(const std::string& arg);
     bool checkParallelity(const std::string& arg);
+    void runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile) const;
 
     const std::string naiveAlgorithmName_ = "naive";
     const std::string winnowingAlgorithmName_ = "winnowing";

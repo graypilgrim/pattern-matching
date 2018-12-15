@@ -15,14 +15,16 @@ void Algorithm::run()
     runTime = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 }
 
+void Algorithm::runWithoutTimeCheck() { std::cout << "here" << std::endl;}
+
 void Algorithm::printResults()
 {
-    std::cout << "Time: " << runTime.count() << "us" << std::endl;
+    std::cout << "Time: " << runTime.count() << " us" << std::endl;
 
     if (occurenceIndexes.empty())
         std::cout << "not matched" << std::endl;
 
-    std::cout << "Pattern occured at position(s): " << std::endl;
+    std::cout << "Pattern occured " << occurenceIndexes.size() << " time(s) at position(s): " << std::endl;
     for (auto it : occurenceIndexes)
         std::cout << "\t" << it << std::endl;
 }

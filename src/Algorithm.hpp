@@ -9,6 +9,7 @@
 class Algorithm
 {
 public:
+    Algorithm() = default;
     Algorithm(const Text &pattern, const Text &document);
     void run();
     void printResults();
@@ -20,7 +21,7 @@ protected:
     std::chrono::microseconds runTime;
 
 private:
-    virtual void runWithoutTimeCheck() = 0;
+    virtual void runWithoutTimeCheck();
     //TODO: template with class name
 };
 
