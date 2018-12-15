@@ -1,6 +1,5 @@
 #include "Algorithm.hpp"
 
-#include <iostream>
 #include <unistd.h>
 
 Algorithm::Algorithm(const Text &pattern, const Text &document)

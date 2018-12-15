@@ -9,7 +9,7 @@ public:
     using ParallelAlgorithm::ParallelAlgorithm;
 
 private:
-    void runWithoutTimeCheck();
+    void runWithoutTimeCheck() override;
 
 };
 

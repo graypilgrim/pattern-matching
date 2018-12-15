@@ -2,7 +2,6 @@
 
 #include <sstream>
 #include <cctype>
-#include <iostream>
 
 Text::Text(std::istream& content)
 {

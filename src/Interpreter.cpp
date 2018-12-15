@@ -3,6 +3,7 @@
 #include "Text.hpp"
 #include "NaiveAlgorithm.hpp"
 #include "ParallelNaiveAlgorithm.hpp"
+#include "WinnowingAlgorithm.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -99,7 +100,10 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
         else
             al = std::make_unique<NaiveAlgorithm>(pattern, document);
     } else {
-        //TODO: winnowing
+        if (parallelly)
+            std::cout << "null" << std::endl;
+        else
+            al = std::make_unique<WinnowingAlgorithm>(pattern, document);
     }
 
     al->run();

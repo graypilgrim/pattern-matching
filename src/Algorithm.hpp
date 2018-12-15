@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <chrono>
+#include <iostream>
 
 #include "Text.hpp"
 
@@ -22,7 +23,6 @@ protected:
 
 private:
     virtual void runWithoutTimeCheck();
-    //TODO: template with class name
 };
 
 
