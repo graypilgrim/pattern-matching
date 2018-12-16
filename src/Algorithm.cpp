@@ -1,7 +1,5 @@
 #include "Algorithm.hpp"
 
-#include <unistd.h>
-
 Algorithm::Algorithm(const Text &pattern, const Text &document)
     : rawPattern_(pattern.getNormalizedContent()), rawDocument_(document.getNormalizedContent())
 {}

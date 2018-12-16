@@ -3,7 +3,6 @@
 
 #include "Algorithm.hpp"
 
-#include <unordered_map>
 #include <string>
 
 class WinnowingAlgorithm : public virtual Algorithm
