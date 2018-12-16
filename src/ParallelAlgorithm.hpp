@@ -3,10 +3,13 @@
 
 #include "Algorithm.hpp"
 
-class ParallelAlgorithm : public Algorithm
+#include <omp.h>
+
+class ParallelAlgorithm : public virtual Algorithm
 {
 public:
     ParallelAlgorithm(const Text &pattern, const Text &document, size_t threadsNum);
+    virtual ~ParallelAlgorithm() = default;
 
 protected:
     const size_t threadsNum_ = 4;

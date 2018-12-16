@@ -14,8 +14,6 @@ void Algorithm::run()
     runTime = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 }
 
-void Algorithm::runWithoutTimeCheck() { std::cout << "here" << std::endl;}
-
 void Algorithm::printResults()
 {
     std::cout << "Time: " << runTime.count() << " us" << std::endl;

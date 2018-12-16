@@ -3,10 +3,11 @@
 
 #include "Algorithm.hpp"
 
-class NaiveAlgorithm : public Algorithm
+class NaiveAlgorithm : public virtual Algorithm
 {
 public:
     using Algorithm::Algorithm;
+    virtual ~NaiveAlgorithm() = default;
 
 private:
     void runWithoutTimeCheck() override;

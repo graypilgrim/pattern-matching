@@ -2,11 +2,12 @@
 #define PARALLEL_NAIVE_ALGORITHM
 
 #include "ParallelAlgorithm.hpp"
+#include "NaiveAlgorithm.hpp"
 
-class ParallelNaiveAlgorithm : public ParallelAlgorithm
+class ParallelNaiveAlgorithm : public ParallelAlgorithm, public NaiveAlgorithm
 {
 public:
-    using ParallelAlgorithm::ParallelAlgorithm;
+    ParallelNaiveAlgorithm(const Text &pattern, const Text &document, size_t threadsNum);
 
 private:
     void runWithoutTimeCheck() override;

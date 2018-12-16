@@ -4,6 +4,7 @@
 #include "NaiveAlgorithm.hpp"
 #include "ParallelNaiveAlgorithm.hpp"
 #include "WinnowingAlgorithm.hpp"
+#include "ParallelWinnowingAlgorithm.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -94,14 +95,13 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     Text document{documentFile};
     std::unique_ptr<Algorithm> al;
     if (naive) {
-        std::cout << "deadbeef" << std::endl;
         if (parallelly)
             al = std::make_unique<ParallelNaiveAlgorithm>(pattern, document, 3);
         else
             al = std::make_unique<NaiveAlgorithm>(pattern, document);
     } else {
         if (parallelly)
-            std::cout << "null" << std::endl;
+            al = std::make_unique<ParallelWinnowingAlgorithm>(pattern, document, 3);
         else
             al = std::make_unique<WinnowingAlgorithm>(pattern, document);
     }
