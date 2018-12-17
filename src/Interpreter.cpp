@@ -91,8 +91,8 @@ bool Interpreter::checkParallelity(const std::string& arg)
 
 void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile) const
 {
-    Text pattern{patternFile};
-    Text document{documentFile};
+    Text pattern{patternFile, true};
+    Text document{documentFile, false};
     std::unique_ptr<Algorithm> al;
     if (naive) {
         if (parallelly)

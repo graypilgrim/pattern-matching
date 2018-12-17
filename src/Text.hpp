@@ -7,7 +7,7 @@
 class Text
 {
 public:
-    Text(std::istream& content);
+    Text(std::istream& content, bool removeNewline);
     std::string getNormalizedContent() const;
 
 private:
