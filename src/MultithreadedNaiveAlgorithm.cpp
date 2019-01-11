@@ -1,10 +1,10 @@
-#include "ParallelNaiveAlgorithm.hpp"
+#include "MultithreadedNaiveAlgorithm.hpp"
 
-ParallelNaiveAlgorithm::ParallelNaiveAlgorithm(const Text &pattern, const Text &document, size_t threadsNum)
-    : Algorithm(pattern, document), ParallelAlgorithm(pattern, document, threadsNum), NaiveAlgorithm(pattern, document)
+MultithreadedNaiveAlgorithm::MultithreadedNaiveAlgorithm(const Text &pattern, const Text &document, size_t threadsNum)
+    : Algorithm(pattern, document), MultihreadedAlgorithm(pattern, document, threadsNum), NaiveAlgorithm(pattern, document)
 {}
 
-void ParallelNaiveAlgorithm::runWithoutTimeCheck()
+void MultithreadedNaiveAlgorithm::runWithoutTimeCheck()
 {
     omp_set_num_threads(threadsNum_);
 

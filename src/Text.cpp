@@ -17,7 +17,6 @@ Text::Text(std::istream& content, bool removeNewline)
             res << c;
     }
     normalizedContent_ = res.str();
-    std::cout << normalizedContent_ << std::endl;
 }
 
 std::string Text::getNormalizedContent() const

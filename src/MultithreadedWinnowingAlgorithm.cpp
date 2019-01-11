@@ -1,10 +1,10 @@
-#include "ParallelWinnowingAlgorithm.hpp"
+#include "MultithreadedWinnowingAlgorithm.hpp"
 
-ParallelWinnowingAlgorithm::ParallelWinnowingAlgorithm(const Text &pattern, const Text &document, size_t threadsNum)
-    : Algorithm(pattern, document), ParallelAlgorithm(pattern, document, threadsNum), WinnowingAlgorithm(pattern, document)
+MultithreadedWinnowingAlgorithm::MultithreadedWinnowingAlgorithm(const Text &pattern, const Text &document, size_t threadsNum)
+    : Algorithm(pattern, document), MultihreadedAlgorithm(pattern, document, threadsNum), WinnowingAlgorithm(pattern, document)
 {}
 
-void ParallelWinnowingAlgorithm::runWithoutTimeCheck()
+void MultithreadedWinnowingAlgorithm::runWithoutTimeCheck()
 {
     auto patternHash = std::hash<std::string>{}(rawPattern_);
     omp_set_num_threads(threadsNum_);

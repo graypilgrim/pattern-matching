@@ -2,60 +2,76 @@
 
 #include "Text.hpp"
 #include "NaiveAlgorithm.hpp"
-#include "ParallelNaiveAlgorithm.hpp"
+#include "MultithreadedNaiveAlgorithm.hpp"
 #include "WinnowingAlgorithm.hpp"
-#include "ParallelWinnowingAlgorithm.hpp"
+#include "MultithreadedWinnowingAlgorithm.hpp"
 
+#include <cstdio>
+#include <cstdlib>
+#include <unistd.h>
 #include <iostream>
 #include <fstream>
 #include <memory>
 
 Interpreter::Interpreter(int argc, char** argv)
 {
-    if (argc == 1) {
-        printHelpMessage();
-        return;
+    size_t all = 0;
+    bool argumentsRet = true;
+    std::ifstream patternFile;
+    std::ifstream documentFile;
+    int c;
+    while((c = getopt(argc, argv, "a:c:p:d:"))!= -1)
+    {
+        switch(c)
+        {
+        case 'a':
+            argumentsRet = checkAlgorithm(optarg);
+            ++all;
+            break;
+        case 'c':
+            argumentsRet = checkComputingStyle(optarg);
+            ++all;
+            break;
+        case 'p':
+            patternFile.open(optarg);
+            if (!patternFile.good()) {
+                printFileErrorMessage(optarg);
+                argumentsRet = false;
+            }
+            ++all;
+            break;
+        case 'd':
+            documentFile.open(optarg);
+            if (!documentFile.good()) {
+                printFileErrorMessage(optarg);
+                argumentsRet = false;
+            }
+            ++all;
+            break;
+        default:
+            printHelpMessage();
+        }
     }
 
-    if (argc != argNumber_) {
-        printHelpMessage();
-        return;
-    }
+    if (all != 4) printHelpMessage();
 
-    if(!checkAlgorithm(argv[1])) {
-        printHelpMessageWithError(argv[1]);
-        return;
-    }
-
-    if(!checkParallelity(argv[2])) {
-        printHelpMessageWithError(argv[2]);
-        return;
-    }
-
-    std::ifstream patternFile{argv[3]};
-    if (!patternFile.good()) {
-        printFileErrorMessage(argv[3]);
-        return;
-    }
-
-    std::ifstream documentFile{argv[4]};
-    if (!documentFile.good()) {
-        printFileErrorMessage(argv[4]);
-        return;
-    }
-
-    runAlgorithm(patternFile, documentFile);
+    if (argumentsRet) runAlgorithm(patternFile, documentFile);
 }
 
 void Interpreter::printHelpMessage() const
 {
-    std::cout << "Usage: find-pattern {naive / winnowing} {p / np} PATTERN_FILE DOCUMENT_FILE" << std::endl;
-}
+    std::cout << "Invalid usage, options are:" << std::endl;
+    std::cout << "\talgorithm:\t\t-a {" << naiveAlgorithmName_ << ", " << winnowingAlgorithmName_ << "}" << std::endl;
+    std::cout << "\tcomputing method:\t-c {";
+    for (auto it = computingStyles_.begin(); it != computingStyles_.end(); ++it) {
+        std::cout << it->first;
+        if (std::next(it, 1) != computingStyles_.end())
+            std::cout << ", ";
+    }
+    std::cout << "}" << std::endl;
+    std::cout << "\tpattern file:\t\t-p FILENAME" << std::endl;
+    std::cout << "\tdocument file:\t\t-d FILENAME" << std::endl;
 
-void Interpreter::printHelpMessageWithError(const std::string &name) const
-{
-    std::cout << "Invalid argument:" << name << std::endl;
-    printHelpMessage();
 }
 
 void Interpreter::printFileErrorMessage(const std::string &name) const
@@ -66,9 +82,9 @@ void Interpreter::printFileErrorMessage(const std::string &name) const
 bool Interpreter::checkAlgorithm(const std::string& arg)
 {
     if (arg == naiveAlgorithmName_) {
-        naive = true;
+        naive_ = true;
     } else if (arg == winnowingAlgorithmName_) {
-        naive = false;
+        naive_ = false;
     } else {
         printHelpMessage();
         return false;
@@ -76,16 +92,14 @@ bool Interpreter::checkAlgorithm(const std::string& arg)
     return true;
 }
 
-bool Interpreter::checkParallelity(const std::string& arg)
+bool Interpreter::checkComputingStyle(const std::string& arg)
 {
-    if (arg == parallellyMarker_) {
-        parallelly = true;
-    } else if (arg == nonParallellyMarker_) {
-        parallelly = false;
-    } else {
+    auto ret = computingStyles_.find(arg);
+    if (ret == computingStyles_.end()) {
         printHelpMessage();
         return false;
     }
+    computingStyle_ = ret->second;
     return true;
 }
 
@@ -94,16 +108,23 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     Text pattern{patternFile, true};
     Text document{documentFile, false};
     std::unique_ptr<Algorithm> al;
-    if (naive) {
-        if (parallelly)
-            al = std::make_unique<ParallelNaiveAlgorithm>(pattern, document, 3);
-        else
+    switch (computingStyle_)
+    {
+    case ComputingStyle::linear:
+        if (naive_)
             al = std::make_unique<NaiveAlgorithm>(pattern, document);
-    } else {
-        if (parallelly)
-            al = std::make_unique<ParallelWinnowingAlgorithm>(pattern, document, 3);
         else
             al = std::make_unique<WinnowingAlgorithm>(pattern, document);
+        break;
+    case ComputingStyle::multithreaded:
+        if (naive_)
+            al = std::make_unique<MultithreadedNaiveAlgorithm>(pattern, document, 3);
+        else
+            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, 3);
+        break;
+    default:
+        /* code */
+        break;
     }
 
     al->run();
