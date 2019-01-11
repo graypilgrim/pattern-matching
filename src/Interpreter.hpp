@@ -20,10 +20,10 @@ private:
     {naive, winnowing};
 
     enum class ComputingStyle
-    {linear, multithreaded, gpu, shared_mem};
+    {sequential, multithreaded, gpu, shared_mem};
 
     const std::unordered_map<std::string, ComputingStyle> computingStyles_ = {
-        {"linear", ComputingStyle::linear},
+        {"sequential", ComputingStyle::sequential},
         {"multithreaded", ComputingStyle::multithreaded},
         {"gpu", ComputingStyle::gpu},
         {"shared-mem", ComputingStyle::shared_mem}
@@ -31,7 +31,7 @@ private:
 
     const std::string naiveAlgorithmName_ = "naive";
     const std::string winnowingAlgorithmName_ = "winnowing";
-    ComputingStyle computingStyle_ = ComputingStyle::linear;
+    ComputingStyle computingStyle_ = ComputingStyle::sequential;
     bool naive_ = true;
 };
 

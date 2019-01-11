@@ -1,7 +1,7 @@
 #include "Interpreter.hpp"
 
 #include "Text.hpp"
-#include "NaiveAlgorithm.hpp"
+#include "SequentialNaiveAlgorithm.hpp"
 #include "MultithreadedNaiveAlgorithm.hpp"
 #include "WinnowingAlgorithm.hpp"
 #include "MultithreadedWinnowingAlgorithm.hpp"
@@ -111,9 +111,9 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     std::unique_ptr<Algorithm> al;
     switch (computingStyle_)
     {
-    case ComputingStyle::linear:
+    case ComputingStyle::sequential:
         if (naive_)
-            al = std::make_unique<NaiveAlgorithm>(pattern, document);
+            al = std::make_unique<SequentialNaiveAlgorithm>(pattern, document);
         else
             al = std::make_unique<WinnowingAlgorithm>(pattern, document);
         break;

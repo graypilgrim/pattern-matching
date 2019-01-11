@@ -1,7 +1,7 @@
 #include "MultithreadedNaiveAlgorithm.hpp"
 
 MultithreadedNaiveAlgorithm::MultithreadedNaiveAlgorithm(const Text &pattern, const Text &document, size_t threadsNum)
-    : Algorithm(pattern, document), MultihreadedAlgorithm(pattern, document, threadsNum), NaiveAlgorithm(pattern, document)
+    : Algorithm(pattern, document), MultihreadedAlgorithm(pattern, document, threadsNum)
 {}
 
 void MultithreadedNaiveAlgorithm::runWithoutTimeCheck()

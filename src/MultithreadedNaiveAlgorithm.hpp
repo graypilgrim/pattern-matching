@@ -2,9 +2,9 @@
 #define MULTITHREADED_NAIVE_ALGORITHM
 
 #include "MultihreadedAlgorithm.hpp"
-#include "NaiveAlgorithm.hpp"
+#include "SequentialNaiveAlgorithm.hpp"
 
-class MultithreadedNaiveAlgorithm : public MultihreadedAlgorithm, public NaiveAlgorithm
+class MultithreadedNaiveAlgorithm : public MultihreadedAlgorithm
 {
 public:
     MultithreadedNaiveAlgorithm(const Text &pattern, const Text &document, size_t threadsNum);
