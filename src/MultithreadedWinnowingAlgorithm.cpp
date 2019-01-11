@@ -13,7 +13,7 @@ void MultithreadedWinnowingAlgorithm::runWithoutTimeCheck()
     for (auto i = 0u; i < documentLastIndex_; ++i) {
         auto nGramHash = std::hash<std::string>{}(rawDocument_.substr(i, nGramSize_));
         if (patternHash == nGramHash) {
-            occurenceIndexes[i] = 1;
+            occurenceIndexes_[i] = 1;
         }
     }
 }

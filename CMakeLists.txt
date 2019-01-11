@@ -8,6 +8,6 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_executable("${BINARY_FILE}" "${PROJECT_SOURCE_DIR}/src/main.cpp")
 
-target_link_libraries("${BINARY_FILE}" SOURCE_OBJS)
+target_link_libraries("${BINARY_FILE}" SOURCE_OBJS OpenCL)
 
 add_subdirectory(src)

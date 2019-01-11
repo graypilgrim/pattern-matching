@@ -18,8 +18,8 @@ public:
 protected:
     std::string rawPattern_;
     std::string rawDocument_;
-    const size_t lastPossibleIndex;
-    std::vector<unsigned char> occurenceIndexes;
+    const size_t lastPossibleIndex_;
+    std::vector<unsigned char> occurenceIndexes_;
     std::chrono::microseconds runTime;
 
 private:

@@ -7,7 +7,7 @@ void SequentialNaiveAlgorithm::runWithoutTimeCheck()
             if (rawDocument_[i + k] != rawPattern_[k]) break;
 
             if (k + 1 == rawPattern_.size())
-                occurenceIndexes[i] = 1;
+                occurenceIndexes_[i] = 1;
         }
     }
 }
