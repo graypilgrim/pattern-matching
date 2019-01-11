@@ -1,7 +1,10 @@
 #include "Algorithm.hpp"
 
 Algorithm::Algorithm(const Text &pattern, const Text &document)
-    : rawPattern_(pattern.getNormalizedContent()), rawDocument_(document.getNormalizedContent())
+    : rawPattern_(pattern.getNormalizedContent()),
+      rawDocument_(document.getNormalizedContent()),
+      lastPossibleIndex(rawDocument_.size() - rawPattern_.size()),
+      occurenceIndexes(lastPossibleIndex, 0)
 {}
 
 void Algorithm::run()
@@ -19,7 +22,13 @@ void Algorithm::printResults()
     if (occurenceIndexes.empty())
         std::cout << "not matched" << std::endl;
 
-    std::cout << "Pattern occured " << occurenceIndexes.size() << " time(s) at position(s): " << std::endl;
-    for (auto it : occurenceIndexes)
-        std::cout << "\t" << it << std::endl;
+    size_t sum = 0;
+    std::cout << "Pattern occured at position(s): " << std::endl;
+    for (auto i = 0u; i < lastPossibleIndex; ++i) {
+        if (occurenceIndexes[i]) {
+            std::cout << "\t" << i << std::endl;
+            ++sum;
+        }
+    }
+    std::cout << "Total: " << sum <<  std::endl;
 }

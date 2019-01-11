@@ -14,8 +14,7 @@ void MultithreadedNaiveAlgorithm::runWithoutTimeCheck()
             if (rawDocument_[i + k] != rawPattern_[k]) break;
 
             if (k + 1 == rawPattern_.size()) {
-                #pragma omp critical
-                occurenceIndexes.push_back(i);
+                occurenceIndexes[i] = 1;
             }
         }
     }

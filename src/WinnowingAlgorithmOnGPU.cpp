@@ -1,12 +1,12 @@
-#include "WinnowingAlgorithm.hpp"
+#include "WinnowingAlgorithmOnGPU.hpp"
 
 #include <functional>
 
-WinnowingAlgorithm::WinnowingAlgorithm(const Text &pattern, const Text &document)
+WinnowingAlgorithmOnGPU::WinnowingAlgorithmOnGPU(const Text &pattern, const Text &document)
     : Algorithm(pattern, document), nGramSize_(rawPattern_.size()), documentLastIndex_(rawDocument_.size() - nGramSize_)
 {}
 
-void WinnowingAlgorithm::runWithoutTimeCheck()
+void WinnowingAlgorithmOnGPU::runWithoutTimeCheck()
 {
     auto patternHash = std::hash<std::string>{}(rawPattern_);
 

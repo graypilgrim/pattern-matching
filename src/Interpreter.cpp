@@ -5,6 +5,7 @@
 #include "MultithreadedNaiveAlgorithm.hpp"
 #include "WinnowingAlgorithm.hpp"
 #include "MultithreadedWinnowingAlgorithm.hpp"
+#include "NaiveAlgorithmOnGPU.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -119,6 +120,12 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     case ComputingStyle::multithreaded:
         if (naive_)
             al = std::make_unique<MultithreadedNaiveAlgorithm>(pattern, document, 3);
+        else
+            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, 3);
+        break;
+    case ComputingStyle::gpu:
+        if (naive_)
+            al = std::make_unique<NaiveAlgorithmOnGPU>(pattern, document);
         else
             al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, 3);
         break;
