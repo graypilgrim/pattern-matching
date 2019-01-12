@@ -6,6 +6,7 @@
 #include "WinnowingAlgorithm.hpp"
 #include "MultithreadedWinnowingAlgorithm.hpp"
 #include "NaiveAlgorithmOnGPU.hpp"
+#include "WinnowingAlgorithmOnGPU.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -127,7 +128,7 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
         if (naive_)
             al = std::make_unique<NaiveAlgorithmOnGPU>(pattern, document);
         else
-            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, 3);
+            al = std::make_unique<WinnowingAlgorithmOnGPU>(pattern, document);
         break;
     default:
         /* code */

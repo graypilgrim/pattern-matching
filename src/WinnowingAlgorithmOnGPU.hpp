@@ -1,19 +1,23 @@
 #ifndef WINNOWING_ALGORITHM_ON_GPU_HPP
 #define WINNOWING_ALGORITHM_ON_GPU_HPP
 
-#include "Algorithm.hpp"
+#include "AlgorithmOnGPU.hpp"
 
 #include <string>
 
-class WinnowingAlgorithmOnGPU : public virtual Algorithm
+class WinnowingAlgorithmOnGPU : public AlgorithmOnGPU
 {
 public:
     WinnowingAlgorithmOnGPU(const Text &pattern, const Text &document);
-    void runWithoutTimeCheck() override;
+    virtual ~WinnowingAlgorithmOnGPU() = default;
 
-protected:
-    const size_t nGramSize_ = 0;
-    const size_t documentLastIndex_ = 0;
+private:
+    void preRun() override;
+    void postRun() override;
+    cl_ulong hash(const std::string& str) const;
+
+    cl::Buffer documentBuffer_;
+    cl::Buffer resultBuffer_;
 };
 
 #endif /* end of include guard: WINNOWING_ALGORITHM_ON_GPU_HPP */

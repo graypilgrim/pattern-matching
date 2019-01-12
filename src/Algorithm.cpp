@@ -9,10 +9,12 @@ Algorithm::Algorithm(const Text &pattern, const Text &document)
 
 void Algorithm::run()
 {
+    preRun();
     std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
     runWithoutTimeCheck();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     runTime = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    postRun();
 }
 
 void Algorithm::printResults()
