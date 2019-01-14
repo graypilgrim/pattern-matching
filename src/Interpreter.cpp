@@ -2,6 +2,7 @@
 
 #include "Text.hpp"
 #include "NaiveAlgorithmWithMPI.hpp"
+#include "WinnowingAlgorithmWithMPI.hpp"
 #include "utils.hpp"
 
 #include <cstdio>
@@ -88,8 +89,8 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
     std::unique_ptr<Algorithm> al;
     if (naive_)
         al = std::make_unique<NaiveAlgorithmWithMPI>(pattern, document);
-    // else
-    //     al = std::make_unique<WinnowingAlgorithm>(pattern, document);
+    else
+        al = std::make_unique<WinnowingAlgorithmWithMPI>(pattern, document);
 
     MPI_Init(nullptr, nullptr);
     al->run();
