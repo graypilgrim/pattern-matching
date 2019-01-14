@@ -1,4 +1,5 @@
 #include "Algorithm.hpp"
+#include "utils.hpp"
 
 Algorithm::Algorithm(const Text &pattern, const Text &document)
     : rawPattern_(pattern.getNormalizedContent()),
