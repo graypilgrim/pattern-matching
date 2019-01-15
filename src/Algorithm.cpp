@@ -1,5 +1,13 @@
 #include "Algorithm.hpp"
 
+/*
+ * below constructor is not called anywhere explicitly but lack of it
+ * caused build error on gcc 6
+*/
+Algorithm::Algorithm()
+    :lastPossibleIndex_(0)
+{}
+
 Algorithm::Algorithm(const Text &pattern, const Text &document)
     : rawPattern_(pattern.getNormalizedContent()),
       rawDocument_(document.getNormalizedContent()),
