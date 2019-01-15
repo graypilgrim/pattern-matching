@@ -111,36 +111,32 @@ bool Interpreter::checkComputingStyle(const std::string& arg)
     return true;
 }
 
-void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile) const
+void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile)
 {
     Text pattern{patternFile, true};
     Text document{documentFile, false};
-    std::unique_ptr<Algorithm> al;
     switch (computingStyle_)
     {
     case ComputingStyle::sequential:
         if (naive_)
-            al = std::make_unique<SequentialNaiveAlgorithm>(pattern, document);
+            createAndRun<SequentialNaiveAlgorithm>(pattern, document);
         else
-            al = std::make_unique<WinnowingAlgorithm>(pattern, document);
+            createAndRun<WinnowingAlgorithm>(pattern, document);
         break;
     case ComputingStyle::multithreaded:
         if (naive_)
-            al = std::make_unique<MultithreadedNaiveAlgorithm>(pattern, document, threadsNo_);
+            createAndRunMultithreaded<MultithreadedNaiveAlgorithm>(pattern, document, threadsNo_);
         else
-            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, threadsNo_);
+            createAndRunMultithreaded<MultithreadedWinnowingAlgorithm>(pattern, document, threadsNo_);
         break;
     case ComputingStyle::gpu:
         if (naive_)
-            al = std::make_unique<NaiveAlgorithmOnGPU>(pattern, document);
+            createAndRun<NaiveAlgorithmOnGPU>(pattern, document);
         else
-            al = std::make_unique<WinnowingAlgorithmOnGPU>(pattern, document);
+            createAndRun<WinnowingAlgorithmOnGPU>(pattern, document);
         break;
     default:
         /* code */
         break;
     }
-
-    al->run();
-    al->printResults();
 }

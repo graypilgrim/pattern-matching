@@ -1,8 +1,11 @@
 #ifndef INTERPRETER_HPP
 #define INTERPRETER_HPP
 
+#include "Text.hpp"
+
 #include <string>
 #include <unordered_map>
+#include <memory>
 
 class Interpreter
 {
@@ -14,7 +17,19 @@ private:
     void printFileErrorMessage(const std::string &name) const;
     bool checkAlgorithm(const std::string& arg);
     bool checkComputingStyle(const std::string& arg);
-    void runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile) const;
+    void runAlgorithm(std::ifstream& patternFile, std::ifstream& documentFile);
+    template <typename T>
+    void createAndRun(const Text &pattern, const Text &document) {
+        auto al = std::make_unique<T>(pattern, document);
+        al->run();
+        al->printResults();
+    }
+    template <typename T>
+    void createAndRunMultithreaded(const Text &pattern, const Text &document, int threadsNo) {
+        auto al = std::make_unique<T>(pattern, document, threadsNo);
+        al->run();
+        al->printResults();
+    }
 
     enum class AlgorithmType
     {naive, winnowing};
