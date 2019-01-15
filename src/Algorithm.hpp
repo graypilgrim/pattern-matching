@@ -10,6 +10,7 @@
 class Algorithm
 {
 public:
+    Algorithm() = default;
     Algorithm(const Text &pattern, const Text &document);
     virtual ~Algorithm() = default;
     void run();
