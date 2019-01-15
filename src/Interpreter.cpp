@@ -22,7 +22,7 @@ Interpreter::Interpreter(int argc, char** argv)
     std::ifstream patternFile;
     std::ifstream documentFile;
     int c;
-    while((c = getopt(argc, argv, "a:c:p:d:"))!= -1)
+    while((c = getopt(argc, argv, "a:c:p:d:t:"))!= -1)
     {
         switch(c)
         {
@@ -50,12 +50,18 @@ Interpreter::Interpreter(int argc, char** argv)
             }
             ++all;
             break;
+        case 't':
+            threadsNo_ = std::stoi(optarg);
+            break;
         default:
             printHelpMessage();
         }
     }
 
-    if (all != 4) printHelpMessage();
+    if (all != 4) {
+        printHelpMessage();
+        return;
+    }
 
     if (argumentsRet) runAlgorithm(patternFile, documentFile);
 }
@@ -120,9 +126,9 @@ void Interpreter::runAlgorithm(std::ifstream& patternFile, std::ifstream& docume
         break;
     case ComputingStyle::multithreaded:
         if (naive_)
-            al = std::make_unique<MultithreadedNaiveAlgorithm>(pattern, document, 3);
+            al = std::make_unique<MultithreadedNaiveAlgorithm>(pattern, document, threadsNo_);
         else
-            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, 3);
+            al = std::make_unique<MultithreadedWinnowingAlgorithm>(pattern, document, threadsNo_);
         break;
     case ComputingStyle::gpu:
         if (naive_)

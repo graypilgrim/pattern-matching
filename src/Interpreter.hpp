@@ -33,6 +33,7 @@ private:
     const std::string winnowingAlgorithmName_ = "winnowing";
     ComputingStyle computingStyle_ = ComputingStyle::sequential;
     bool naive_ = true;
+    int threadsNo_ = 1;
 };
 
 #endif /* end of include guard: INTERPRETER_HPP */
