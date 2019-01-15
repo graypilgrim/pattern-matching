@@ -1,5 +1,9 @@
 #include "Algorithm.hpp"
 
+Algorithm::Algorithm()
+    :lastPossibleIndex_(0)
+{}
+
 Algorithm::Algorithm(const Text &pattern, const Text &document)
     : rawPattern_(pattern.getNormalizedContent()),
       rawDocument_(document.getNormalizedContent()),
